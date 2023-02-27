@@ -9,7 +9,6 @@ public class Habit
   public DateOnly Date { get; set; }
   public Boolean Completed { get; set; }
   public int UserId { get; set; }
-  public User User { get; set; }
 
   public Habit()
   {

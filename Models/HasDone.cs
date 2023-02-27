@@ -7,7 +7,6 @@ public class HasDone
   public DateOnly Date { get; set; }
   public int Xp { get; set; }
   public int UserId { get; set; }
-  public User User { get; set; }
 
   public HasDone()
   {
