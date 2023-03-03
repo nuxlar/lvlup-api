@@ -1,11 +1,24 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using LvlUpApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// DOMAIN dev-buobm2eea412cbsg.us.auth0.com
+// CLIENT S4NvQqmvVjtytjzhnILH7gghcz8qLAlM
 builder.Services.AddControllers();
+// Add Authentication Services
+builder.Services.AddAuthentication(options =>
+        {
+          options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+          options.Authority = "https://dev-buobm2eea412cbsg.us.auth0.com/";
+          options.Audience = "http://localhost:5227/";
+        });
 builder.Services.AddDbContext<HasDoneContext>(opt =>
     opt.UseInMemoryDatabase("HasDoneList"));
 builder.Services.AddDbContext<HabitContext>(opt =>
@@ -29,6 +42,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+// Enable authentication middleware
+app.UseAuthentication();
 
 app.MapControllers();
 
